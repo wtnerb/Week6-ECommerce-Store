@@ -25,7 +25,7 @@ burnden to complete if you wait until the end of the project.
 ## Day 2 - Claims and Application Roles
 Adding onto your previous day's lab...
 - Add default Application Roles (Admin and Member) to your application upon startup (seeding)
-- Seed the Database with default products for your store
+- Seed the Database with default products for your store (You will need to create a new DBContext, and register it separately in your application)
 - Upon Registration add onto your user a variety of claims
 - Assign users upon registration to a "MEMBER" user role. 
 - Create a controller called *ProductsController* that allows you to do the standard CRUD operations on Products (you are allowed to scaffold, if you wish).
