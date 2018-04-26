@@ -35,6 +35,32 @@ Adding onto your previous day's lab...
 - Upon login, If the user is an Admin, Redirect them to an Admin Dashboard that displays all of the products that are 
 currently in the inventory. 
 
-- 
+## Day 3 - Custom Policies
+Adding onto previous day's lab, 3 different types of policies based on what we went over in class.
+You should have one each of the following:
+1. Role Based Policy (i.e. Only "Admins" can access a certain part of the site.)
+2. Claims based policies (You have to be 21+)
+3. Present Claim based policy (Any user that has the "FavoriteColor" claim can access a part of the site)
+
+### Additions as you find time...
+1. Update your existing code so that only Admins have access to the CRUD operations of the product (You don't want your 
+members to have the ability to manipulate inventory?!?!)
+
+1. Create a *ShopController* that is accessible by anyone (logged in or not) that shows all of the products that your
+store has to offer. Display an image of the item, it's name, and the price. 
+
+1. Create a "Profile" action in your *AccountController* that displays the users information. 
+	- Allow the user the ability to edit their personal information (*Not* their email address, as that is their username to login....)
+		- If you want to get tricky..there is a way to accomplish this..as a stretch goal you may figure it out if you wish.
+	- Allow the user to change their password.
+
+1. Add a button or a link on each product that says "Add To Cart", on day 4, we will work towards adding an item to a cart, but
+build the link first to display with each product, and we can build the rest of the functionality tomorrow....
+
+1. Start thinking about how you will track user's adding items to their cart and order history of a user. 
+	 - Can we make it so that an admin can view all order history as well?
+	 - How are we going to track unchecked-out carts? (we will discuss this in class as different options...)
+
+
 
 
