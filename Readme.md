@@ -42,7 +42,7 @@ You should have one each of the following:
 2. Claims based policies (You have to be 21+, you may NOT use a minimum age policy for your lab.)
 3. Present Claim based policy (Any user that has the "FavoriteColor" claim can access a part of the site)
 
-### Additions as you find time...
+### Additional requirements
 1. Update your existing code so that only Admins have access to the CRUD operations of the product (You don't want your 
 members to have the ability to manipulate inventory?!?!)
 
