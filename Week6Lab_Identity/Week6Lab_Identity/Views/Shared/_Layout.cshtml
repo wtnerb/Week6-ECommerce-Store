@@ -1,4 +1,9 @@
-﻿@page
-@model _LayoutModel
-@{
+﻿@model Week6Lab_Identity.Models.ApplicationUser @*Work in progress.*@
+@if ( Model == null)
+{
+    <p>Greetings Stranger!</p>
+}
+else
+{
+    <p>Hello @Model.Email</p>
 }
