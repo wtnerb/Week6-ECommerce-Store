@@ -36,10 +36,10 @@ Adding onto your previous day's lab...
 currently in the inventory. 
 
 ## Day 3 - Custom Policies
-Adding onto previous day's lab, 3 different types of policies based on what we went over in class.
+Adding onto previous day's lab, create 3 different types of policies based on what we went over in class.
 You should have one each of the following:
 1. Role Based Policy (i.e. Only "Admins" can access a certain part of the site.)
-2. Claims based policies (You have to be 21+)
+2. Claims based policies (You have to be 21+, you may NOT use a minimum age policy for your lab.)
 3. Present Claim based policy (Any user that has the "FavoriteColor" claim can access a part of the site)
 
 ### Additions as you find time...
@@ -50,9 +50,9 @@ members to have the ability to manipulate inventory?!?!)
 store has to offer. Display an image of the item, it's name, and the price. 
 
 1. Create a "Profile" action in your *AccountController* that displays the users information. 
-	- Allow the user the ability to edit their personal information (*Not* their email address, as that is their username to login....)
+	1. Allow the user the ability to edit their personal information (*Not* their email address, as that is their username to login....
 		- If you want to get tricky..there is a way to accomplish this..as a stretch goal you may figure it out if you wish.
-	- Allow the user to change their password.
+	2. Allow the user to change their password.
 
 1. Add a button or a link on each product that says "Add To Cart", on day 4, we will work towards adding an item to a cart, but
 build the link first to display with each product, and we can build the rest of the functionality tomorrow....
