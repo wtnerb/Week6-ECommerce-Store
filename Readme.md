@@ -7,7 +7,7 @@ personal e-commerce store. Be sure to read the directions in it's entirety befor
 <br />
 Pay close attention to the naming conventions specified. 
 
-### Day 1 - Intro to Identity
+## Day 1 - Intro to Identity
 
 - Create a brand new empty web application in Visual Studio. 
 - Enable/Include the Identity Framework and all of it's required components. 
