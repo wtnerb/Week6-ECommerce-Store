@@ -8,8 +8,8 @@ namespace Week6Lab_Identity.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string Username { get; set; }
         public decimal EstimatedLifetimeEarnings { get; set; }
-        private readonly bool Important = false;
+        public DateTime DateRegistered { get; set; }
+        public byte Location { get; set; }
     }
 }

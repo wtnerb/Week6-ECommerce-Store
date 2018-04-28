@@ -16,8 +16,8 @@ namespace Week6Lab_Identity.Models.ViewModels
         public byte Age { get; set; }
 
         [Required]
-        [DataType(DataType.Currency)]
-        public decimal CurrentIncome { get; set; }
+        [DataType("Region")]
+        public string Location { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -25,6 +25,7 @@ namespace Week6Lab_Identity.Models.ViewModels
         public string Password { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Passwords don't match. Did a cat walk across your keyboard?")]
         public string ConfirmPassword { get; set; }
     }

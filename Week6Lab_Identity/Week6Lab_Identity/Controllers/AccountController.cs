@@ -36,8 +36,8 @@ namespace Week6Lab_Identity.Controllers
                 ApplicationUser n00b = new ApplicationUser
                 {
                     Email = noob.Email,
-                    EstimatedLifetimeEarnings =
-                        (decimal)((double)noob.CurrentIncome * (noob.Age - 10) * 0.7)
+                    UserName = noob.Email,
+                    DateRegistered = new DateTime()
                 };
 
                 var result = await _userManager.CreateAsync(n00b);
@@ -47,7 +47,7 @@ namespace Week6Lab_Identity.Controllers
                     Regex edu = new Regex(".edu$");//one claims are working, use to make a claim to student status
                     List<Claim> areYouReal = new List<Claim>();
                     //Got tired of failing to debug this. Will come back later.
-                    //Claim wealth = new Claim(n00b.EstimatedLifetimeEarnings, ClaimValueTypes.Double );
+                    Claim wealth = new Claim(ClaimTypes.StateOrProvince,  $"{n00b.Location}", ClaimValueTypes.String);
                     await _userManager.AddClaimsAsync(n00b, areYouReal);
 
                     await _signInManager.SignInAsync(n00b, isPersistent: false);
@@ -60,7 +60,7 @@ namespace Week6Lab_Identity.Controllers
 
         [HttpGet]
         public ViewResult Login()
-        {
+        { 
             return View();
         }
 

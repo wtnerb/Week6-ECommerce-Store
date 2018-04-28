@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using Week6Lab_Identity.Data;
+using Week6Lab_Identity.Models;
 
 namespace Week6Lab_Identity.Migrations
 {
@@ -138,12 +139,16 @@ namespace Week6Lab_Identity.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("DateRegistered");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<decimal>("EstimatedLifetimeEarnings");
+
+                    b.Property<int>("Location");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -167,8 +172,6 @@ namespace Week6Lab_Identity.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
-
-                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 
