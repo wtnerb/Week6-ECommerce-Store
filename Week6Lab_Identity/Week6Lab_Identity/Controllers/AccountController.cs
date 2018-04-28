@@ -23,13 +23,13 @@ namespace Week6Lab_Identity.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create ()
+        public IActionResult Register ()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Models.ViewModels.CreateUser noob)
+        public async Task<IActionResult> Register(Models.ViewModels.RegisterUser noob)
         {
             if (ModelState.IsValid)
             {
@@ -37,7 +37,8 @@ namespace Week6Lab_Identity.Controllers
                 {
                     Email = noob.Email,
                     UserName = noob.Email,
-                    DateRegistered = new DateTime()
+                    DateRegistered = new DateTime(),
+                    PhoneNumber = noob.Phone
                 };
 
                 var result = await _userManager.CreateAsync(n00b);
@@ -45,9 +46,13 @@ namespace Week6Lab_Identity.Controllers
                 if (result.Succeeded)
                 {
                     Regex edu = new Regex(".edu$");//one claims are working, use to make a claim to student status
-                    List<Claim> areYouReal = new List<Claim>();
+                    List<Claim> areYouReal = new List<Claim>() {
+                        new Claim(ClaimTypes.StateOrProvince,  $"{n00b.Location}", ClaimValueTypes.String),
+                        new Claim(ClaimTypes.MobilePhone, n00b.PhoneNumber),
+                        new Claim(ClaimTypes.Email, n00b.Email),
+                        //new Claim(ClaimTypes.DateOfBirth, n00b.DateRegistered)
+                    };
                     //Got tired of failing to debug this. Will come back later.
-                    Claim wealth = new Claim(ClaimTypes.StateOrProvince,  $"{n00b.Location}", ClaimValueTypes.String);
                     await _userManager.AddClaimsAsync(n00b, areYouReal);
 
                     await _signInManager.SignInAsync(n00b, isPersistent: false);
@@ -67,20 +72,6 @@ namespace Week6Lab_Identity.Controllers
         [HttpPost]
         public async Task<IActionResult> Login (Models.ViewModels.WhoAreYou way)
         {
-            //Finally looked at the example code and realized I could do all this in a 
-            //one line method call. oops.
-            //if (ModelState.IsValid)
-            //{
-            //    var user = _userManager.Users.FirstOrDefault(x => x.Email == way.User);
-            //    if (user == null)
-            //    {
-            //        return RedirectToAction("Home", "Index");//Do something more useful here
-            //    }
-            //    if ( await _userManager.CheckPasswordAsync(user, way.Password))
-            //    {
-            //        _userManager.
-            //    }
-            //}
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(way.User, way.Password, false, false);

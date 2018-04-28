@@ -11,5 +11,6 @@ namespace Week6Lab_Identity.Models
         public decimal EstimatedLifetimeEarnings { get; set; }
         public DateTime DateRegistered { get; set; }
         public byte Location { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

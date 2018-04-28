@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Week6Lab_Identity.Models.ViewModels
 {
-    public class CreateUser
+    public class RegisterUser
     {
         [Required]
         [EmailAddress]
@@ -18,6 +18,9 @@ namespace Week6Lab_Identity.Models.ViewModels
         [Required]
         [DataType("Region")]
         public string Location { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        public string Phone { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
