@@ -29,33 +29,32 @@ namespace Week6Lab_Identity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(Models.ViewModels.RegisterUser noob)
+        public async Task<IActionResult> Register(Models.ViewModels.RegisterUser formData)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser n00b = new ApplicationUser
+                ApplicationUser newUser = new ApplicationUser
                 {
-                    Email = noob.Email,
-                    UserName = noob.Email,
+                    Email = formData.Email,
+                    UserName = formData.Email,
                     DateRegistered = new DateTime(),
-                    PhoneNumber = noob.Phone
+                    PhoneNumber = formData.Phone
                 };
 
-                var result = await _userManager.CreateAsync(n00b);
+                var result = await _userManager.CreateAsync(newUser);
 
                 if (result.Succeeded)
                 {
-                    Regex edu = new Regex(".edu$");//one claims are working, use to make a claim to student status
-                    List<Claim> areYouReal = new List<Claim>() {
-                        new Claim(ClaimTypes.StateOrProvince,  $"{n00b.Location}", ClaimValueTypes.String),
-                        new Claim(ClaimTypes.MobilePhone, n00b.PhoneNumber),
-                        new Claim(ClaimTypes.Email, n00b.Email),
+                    List<Claim> claimList = new List<Claim>() {
+                        new Claim(ClaimTypes.StateOrProvince,  $"{newUser.Location}", ClaimValueTypes.String),
+                        new Claim(ClaimTypes.MobilePhone, newUser.PhoneNumber),
+                        new Claim(ClaimTypes.Email, newUser.Email),
                         //new Claim(ClaimTypes.DateOfBirth, n00b.DateRegistered)
                     };
                     //Got tired of failing to debug this. Will come back later.
-                    await _userManager.AddClaimsAsync(n00b, areYouReal);
+                    await _userManager.AddClaimsAsync(newUser, claimList);
 
-                    await _signInManager.SignInAsync(n00b, isPersistent: false);
+                    await _signInManager.SignInAsync(newUser, isPersistent: false);
 
                     RedirectToAction("Index", "Home");
                 }

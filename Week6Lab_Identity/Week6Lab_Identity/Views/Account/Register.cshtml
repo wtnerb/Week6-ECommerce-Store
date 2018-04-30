@@ -9,11 +9,6 @@
     </div>
 
     <div>
-        <label asp-for="Age">How old do you feel? Trust us! <span class="req">required</span></label>
-        <input asp-for="Age" type="number"/>
-    </div>
-
-    <div>
         <label asp-for="Location">What is your region? <span class="req">required</span></label>
         <select asp-for="Location" asp-items="@Html.GetEnumSelectList(typeof(Region))" />
     </div>    
