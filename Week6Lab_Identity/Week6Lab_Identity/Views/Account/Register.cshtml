@@ -3,25 +3,35 @@
 
 <h3>Sign on the dotted line. No TOS!</h3>
 <form asp-action="post">
-    <label asp-for="Email">Email <span class="req">required</span></label>
-    <input asp-for="Email" type="email"/>
+    <div>
+        <label asp-for="Email">Email <span class="req">required</span></label>
+        <input asp-for="Email" type="email"/>
+    </div>
 
-    <label asp-for="Age">How old do you feel? Trust us! <span class="req">required</span></label>
-    <input asp-for="Age" type="number"/>
+    <div>
+        <label asp-for="Age">How old do you feel? Trust us! <span class="req">required</span></label>
+        <input asp-for="Age" type="number"/>
+    </div>
 
-    @* I am deliberately phrasing these requests to prevent people from giving me 
-        personal information. This is an example, not a real site.*@
-    <label asp-for="Location">What is your region? <span class="req">required</span></label>
-    <select asp-for="Location" asp-items="@Html.GetEnumSelectList(typeof(Region))" />
+    <div>
+        <label asp-for="Location">What is your region? <span class="req">required</span></label>
+        <select asp-for="Location" asp-items="@Html.GetEnumSelectList(typeof(Region))" />
+    </div>    
 
-    <label asp-for="Phone">Phone number</label>
-    <input asp-for="Phone" />
+    <div>
+        <label asp-for="Phone">Phone number</label>
+        <input asp-for="Phone" />
+    </div>
 
-    <label asp-for="Password">Password <span class="req">required</span></label>
-    <input asp-for="Password" />
+    <div>
+        <label asp-for="Password">Password <span class="req">required</span></label>
+        <input asp-for="Password" />
+    </div>
 
-    <label asp-for="ConfirmPassword">Typing test - do it again <span class="req">required</span></label>
-    <input asp-for="ConfirmPassword" />
+    <div>
+        <label asp-for="ConfirmPassword">Typing test - do it again <span class="req">required</span></label>
+        <input asp-for="ConfirmPassword" />
+    </div>
 
     <button type="submit">Click Bait!!!</button>
 </form>
