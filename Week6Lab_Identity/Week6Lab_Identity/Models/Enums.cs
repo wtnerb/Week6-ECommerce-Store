@@ -5,10 +5,6 @@ using System.Threading.Tasks;
 
 namespace Week6Lab_Identity.Models
 {
-    public class Enums
-    {
-    }
-
     public enum Region
     {
         Seattle,

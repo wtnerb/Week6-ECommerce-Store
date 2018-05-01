@@ -2,15 +2,15 @@
 @using Week6Lab_Identity.Models
 
 <h3>Sign on the dotted line. No TOS!</h3>
-<form asp-action="post">
+<form asp-action="Register" method="post">
     <div>
-        <label asp-for="Email">Email <span class="req">required</span></label>
+        <label asp-for="Email">Email <span class="req">*</span></label>
         <input asp-for="Email" type="email"/>
     </div>
 
     <div>
-        <label asp-for="Location">What is your region? <span class="req">required</span></label>
-        <select asp-for="Location" asp-items="@Html.GetEnumSelectList(typeof(Region))" />
+        <label asp-for="Location">What is your region? <span class="req">*</span></label>
+        <select asp-for="Location" asp-items="Html.GetEnumSelectList<Region>()" ></select>
     </div>    
 
     <div>
@@ -19,12 +19,12 @@
     </div>
 
     <div>
-        <label asp-for="Password">Password <span class="req">required</span></label>
+        <label asp-for="Password">Password <span class="req">*</span></label>
         <input asp-for="Password" />
     </div>
 
     <div>
-        <label asp-for="ConfirmPassword">Typing test - do it again <span class="req">required</span></label>
+        <label asp-for="ConfirmPassword">Typing test - do it again <span class="req">*</span></label>
         <input asp-for="ConfirmPassword" />
     </div>
 
