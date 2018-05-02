@@ -42,7 +42,7 @@ namespace Week6Lab_Identity
             {
                 options.AddPolicy("Educational", policy => policy.Requirements.Add(
                     new EmailEndRequirement(@"^[a-zA-Z0-9\._]+@\w{1,5}\.edu$")));
-                options.AddPolicy()
+                
             });
         }
 

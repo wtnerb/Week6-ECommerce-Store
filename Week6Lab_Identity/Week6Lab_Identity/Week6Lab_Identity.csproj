@@ -9,9 +9,12 @@
     <Compile Remove="Migrations\20180426200022_initial.Designer.cs" />
     <Compile Remove="Migrations\20180427183837_RefinedUser.cs" />
     <Compile Remove="Migrations\20180427183837_RefinedUser.Designer.cs" />
+    <Compile Remove="Migrations\20180502154332_Better.cs" />
+    <Compile Remove="Migrations\20180502154332_Better.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Store\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

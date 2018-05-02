@@ -35,8 +35,9 @@ namespace Week6Lab_Identity.Controllers
                 {
                     Email = formData.Email,
                     UserName = formData.Email,
-                    DateRegistered = new DateTime(),
-                    PhoneNumber = formData.Phone
+                    DateRegistered = DateTime.Now,
+                    PhoneNumber = formData.Phone,
+                    Location = (byte)Enum.Parse<Region>(formData.Location)
                 };
 
                 var result = await _userManager.CreateAsync(newUser);
@@ -47,7 +48,7 @@ namespace Week6Lab_Identity.Controllers
                         new Claim(ClaimTypes.StateOrProvince,  $"{newUser.Location}", ClaimValueTypes.String),
                         new Claim(ClaimTypes.MobilePhone, newUser.PhoneNumber),
                         new Claim(ClaimTypes.Email, newUser.Email),
-                        //new Claim(ClaimTypes.DateOfBirth, n00b.DateRegistered)
+                        //new Claim(ClaimTypes.DateOfBirth, newUser.DateRegistered)
                     };
                     //Got tired of failing to debug this. Will come back later.
                     await _userManager.AddClaimsAsync(newUser, claimList);
@@ -67,11 +68,11 @@ namespace Week6Lab_Identity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login (Models.ViewModels.WhoAreYou way)
+        public async Task<IActionResult> Login (Models.ViewModels.Login login)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(way.User, way.Password, false, false);
+                var result = await _signInManager.PasswordSignInAsync(login.Username, login.Password, false, false);
                 return RedirectToAction("Index", "Home");
             }
 

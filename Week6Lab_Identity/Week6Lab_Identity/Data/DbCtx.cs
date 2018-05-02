@@ -10,9 +10,9 @@ namespace Week6Lab_Identity.Data
 {
     public class DbCtx : IdentityDbContext<ApplicationUser>
     {
-        public DbCtx(DbContextOptions<DbCtx> options) : base(options)
-        {
 
+        public DbCtx(DbContextOptions options) : base(options)
+        {
         }
     }
 }

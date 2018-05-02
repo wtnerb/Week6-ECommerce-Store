@@ -24,7 +24,6 @@ namespace Week6Lab_Identity.Models.ViewModels
 
         [Required]
         [DataType(DataType.Password)]
-        [MaxLength(3, ErrorMessage = "Sorry, your password is too difficult to hack. Can you make it simpler?")]
         public string Password { get; set; }
 
         [Required]

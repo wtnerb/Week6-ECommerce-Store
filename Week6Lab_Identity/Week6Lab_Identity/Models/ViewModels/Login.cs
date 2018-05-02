@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Week6Lab_Identity.Models.ViewModels
 {
-    public class WhoAreYou
+    public class Login
     {
         [Required]
-        [EmailAddress]
-        public string User { get; set; }
-
+        public string Username { get; set; }
+        
         [Required]
-        [MaxLength(3)]//set the same as in CreateUser
         public string Password { get; set; }
     }
 }
