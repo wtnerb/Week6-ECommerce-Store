@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Week6Lab_Identity.Data;
 using Week6Lab_Identity.Models;
+using Week6Lab_Identity.Models.Policies;
+
 
 namespace Week6Lab_Identity
 {
@@ -34,6 +36,13 @@ namespace Week6Lab_Identity
             services.AddDbContext<DbCtx>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultString"));
+            });
+
+            services.AddAuthorization(options => 
+            {
+                options.AddPolicy("Educational", policy => policy.Requirements.Add(
+                    new EmailEndRequirement(@"^[a-zA-Z0-9\._]+@\w{1,5}\.edu$")));
+                options.AddPolicy()
             });
         }
 
