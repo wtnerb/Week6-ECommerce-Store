@@ -1,10 +1,32 @@
-﻿@model Week6Lab_Identity.Models.ApplicationUser 
-     @*Work in progress.*@
-@if ( Model == null)
-{
-    <p>Greetings Stranger!</p>
-}
-else
-{
-    <p>Hello @Model.Email</p>
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <header>
+        <h2>Wordy</h2>
+        <h3 class="tagline">All the words you'll ever afford</h3>
+        <a href="~/Account/SignIn">sign in</a>
+        <a href="~/Account/Register">Register</a>
+    </header>
+    <main>
+        <nav>
+            <ul>
+                <li>
+                    <a href="~/Store/Index">store</a>
+                </li>
+                <li>
+                    <a href="https://chk.tbe.taleo.net/chk01/ats/careers/v2/jobSearch?act=redirectCwsV2&cws=40&org=SPACENEEDLE">Careers (at the space needle)</a>
+                </li>
+                <li>
+                    <a href="~/Store/Checkout">Checkout</a>
+                </li>
+                <li>
+                    <a href="~/Account/Details">Profile</a>
+                </li>
+            </ul>
+        </nav>
+        @RenderBody()
+    </main>
+</body>
+</html>
