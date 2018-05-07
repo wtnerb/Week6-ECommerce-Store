@@ -9,7 +9,7 @@ namespace Week6Lab_Identity.Models
     {
         public string Text { get; set; }
         public string Definition { get; set; }
-        public string[] Usage { get; set; }
+        public POS Usage { get; set; }
         public decimal Price { get; set; }
     }
 }

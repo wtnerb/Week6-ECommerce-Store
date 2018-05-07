@@ -48,14 +48,15 @@ namespace Week6Lab_Identity.Controllers
                         new Claim(ClaimTypes.StateOrProvince,  $"{newUser.Location}", ClaimValueTypes.String),
                         new Claim(ClaimTypes.MobilePhone, newUser.PhoneNumber),
                         new Claim(ClaimTypes.Email, newUser.Email),
-                        //new Claim(ClaimTypes.DateOfBirth, newUser.DateRegistered)
+                        new Claim(ClaimTypes.DateOfBirth, newUser.DateRegistered.ToShortDateString(), ClaimValueTypes.DateTime)
                     };
                     //Got tired of failing to debug this. Will come back later.
                     await _userManager.AddClaimsAsync(newUser, claimList);
 
                     await _signInManager.SignInAsync(newUser, isPersistent: false);
 
-                    RedirectToAction("Index", "Home");
+
+                    RedirectToAction("Prods", "Store");
                 }
             }
             return View(); // captcha stuff would go here in actual implementation

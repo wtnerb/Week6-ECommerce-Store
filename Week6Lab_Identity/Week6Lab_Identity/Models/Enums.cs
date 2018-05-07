@@ -14,4 +14,14 @@ namespace Week6Lab_Identity.Models
         Pullman,
         Everett
     }
+
+    public enum POS
+    {
+        verb,
+        noun,
+        adverb,
+        pronoun,
+        adjective,
+        preposition
+    }
 }

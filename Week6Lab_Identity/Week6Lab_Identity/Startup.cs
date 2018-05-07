@@ -41,7 +41,7 @@ namespace Week6Lab_Identity
             services.AddAuthorization(options => 
             {
                 options.AddPolicy("Educational", policy => policy.Requirements.Add(
-                    new EmailEndRequirement(@"^[a-zA-Z0-9\._]+@\w{1,5}\.edu$")));
+                    new EmailRequirement(@"^[a-zA-Z0-9\._]+@\w{1,5}\.edu$")));
                 
             });
             services.AddMvc();
