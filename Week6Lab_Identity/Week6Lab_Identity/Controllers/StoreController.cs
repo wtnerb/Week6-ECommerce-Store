@@ -9,6 +9,7 @@ using Week6Lab_Identity.Models.ViewModels;
 
 namespace Week6Lab_Identity.Controllers
 {
+    [Authorize]
     public class StoreController : Controller
     {
         [HttpGet]

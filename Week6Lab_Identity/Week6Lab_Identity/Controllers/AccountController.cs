@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,15 @@ namespace Week6Lab_Identity.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         
-        public AccountController (SignInManager<ApplicationUser> singInMaganger,
+        public AccountController (SignInManager<ApplicationUser> signInMaganger,
             UserManager<ApplicationUser> userManager)
         {
-            _signInManager = singInMaganger;
+            _signInManager = signInMaganger;
             _userManager = userManager;
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register ()
         {
             return View();
@@ -40,18 +42,20 @@ namespace Week6Lab_Identity.Controllers
                     Location = (byte)Enum.Parse<Region>(formData.Location)
                 };
 
-                var result = await _userManager.CreateAsync(newUser);
+                var result = await _userManager.CreateAsync(newUser, formData.ConfirmPassword);
 
                 if (result.Succeeded)
                 {
                     List<Claim> claimList = new List<Claim>() {
                         new Claim(ClaimTypes.StateOrProvince,  $"{newUser.Location}", ClaimValueTypes.String),
                         new Claim(ClaimTypes.MobilePhone, newUser.PhoneNumber),
-                        new Claim(ClaimTypes.Email, newUser.Email),
-                        new Claim(ClaimTypes.DateOfBirth, newUser.DateRegistered.ToShortDateString(), ClaimValueTypes.DateTime)
+                        new Claim(ClaimTypes.Email, newUser.Email, ClaimValueTypes.Email),
+                        new Claim(ClaimTypes.DateOfBirth, new DateTime(newUser.DateRegistered.Year, newUser.DateRegistered.Month, newUser.DateRegistered.Day).ToString("u"), ClaimValueTypes.DateTime)
                     };
                     //Got tired of failing to debug this. Will come back later.
                     await _userManager.AddClaimsAsync(newUser, claimList);
+
+                    //await _userManager.AddToRoleAsync(newUser, )
 
                     await _signInManager.SignInAsync(newUser, isPersistent: false);
 

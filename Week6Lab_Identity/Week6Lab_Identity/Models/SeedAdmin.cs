@@ -34,10 +34,12 @@ namespace Week6Lab_Identity.Models
         public static void SeedDatabase (IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager)
         {
             using (var dbCtx =
-                new DbCtx(serviceProvider.GetRequiredService<DbContextOptions<DbContext>>()))
+                new DbCtx(serviceProvider.GetRequiredService<DbContextOptions<DbCtx>>()))
             {
                 dbCtx.Database.EnsureCreated();
                 AddRoles(dbCtx);
+                AddUser(dbCtx, userManager);
+                AddUserRoles(dbCtx);
             }
         }
 
@@ -53,14 +55,14 @@ namespace Week6Lab_Identity.Models
 
         public static async void AddUser (DbCtx ctx, UserManager<ApplicationUser> userManager)
         {
-            if (ctx.Users.Any()) return;
+            if (ctx.Users.Any(x => x.UserName == AdminEmail)) return;
             ApplicationUser admin = new ApplicationUser()
             {
                 UserName = AdminEmail,
                 Email = AdminEmail,
                 EmailConfirmed = true,
                 Location = (byte)Enum.Parse<Region>("Bellingham"),
-                DateRegistered = new DateTime()
+                DateRegistered = DateTime.Now
             };
             await userManager.CreateAsync(admin, AdminPassword);
         }

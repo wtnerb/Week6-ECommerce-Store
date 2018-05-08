@@ -18,16 +18,15 @@ namespace Week6Lab_Identity
                 var services = scope.ServiceProvider;
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
-                //TODO uncomment this
-                //try
-                //{
-                //    SeedAdmin.SeedDatabase(services, userManager);
-                //}
-                //catch (Exception e)
-                //{
-                //    Console.WriteLine(e);
-                //    throw;
-                //}
+                try
+                {
+                    SeedAdmin.SeedDatabase(services, userManager);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
                 
                 
