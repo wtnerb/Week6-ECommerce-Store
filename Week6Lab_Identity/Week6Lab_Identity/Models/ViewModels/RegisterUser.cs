@@ -13,9 +13,6 @@ namespace Week6Lab_Identity.Models.ViewModels
         public string Email { get; set; }
 
         [Required]
-        public byte Age { get; set; }
-
-        [Required]
         [DataType("Region")]
         public string Location { get; set; }
 

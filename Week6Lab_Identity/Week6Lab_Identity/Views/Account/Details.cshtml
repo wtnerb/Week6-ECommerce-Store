@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using Week6Lab_Identity.Models
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if(User.Identity.IsAuthenticated)
+{
+    <h3>@User.Identity.Name</h3>
+    <ul>
+        @foreach (Claim c in User.Claims)
+        {
+            <li>
+                @c.Value
+            </li>
+
+        }
+    </ul>
+
+
+}

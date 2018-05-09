@@ -9,9 +9,11 @@ namespace Week6Lab_Identity.Models.ViewModels
     public class Login
     {
         [Required]
+        [StringLength(100)]
         public string Username { get; set; }
         
         [Required]
+        [StringLength(40)]
         public string Password { get; set; }
     }
 }

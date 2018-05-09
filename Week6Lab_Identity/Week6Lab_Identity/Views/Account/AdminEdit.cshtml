@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table>
+    <thead>
+        <tr>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(ApplicationUser u in Model)
+        {
+        <tr class="repeated">
+            <td>@u.Email</td>
+            <td>@u.DateRegistered</td>
+            <td>@u.UserName</td>
+            <td>
+                <a href="~/Account/Delete/@u.Id.ToString()">
+                    delete
+                </a>
+                <a>
+                    make Admin
+                </a>
+            </td>
+        </tr>
+
+
+        }
+    </tbody>
+</table>

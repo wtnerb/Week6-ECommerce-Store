@@ -1,10 +1,50 @@
-﻿@model Week6Lab_Identity.Models.ApplicationUser 
-     @*Work in progress.*@
-@if ( Model == null)
-{
-    <p>Greetings Stranger!</p>
-}
-else
-{
-    <p>Hello @Model.Email</p>
-}
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/Style.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h2>Wordy</h2>
+        <h3 class="tagline">All the words you'll ever afford</h3>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a href="~/Account/Details">@UserManager.GetUserName(User)</a>
+            <a href="~/Account/Logout">Log out</a>
+        }
+        else
+        {
+            <a href="~/Account/Login">log in</a>
+            <a href="~/Account/Register">Register</a>
+        }
+            </header>
+    <main>
+        <nav>
+            <ul>
+                <li>
+                    <a href="~/Home">Home</a>
+                </li>
+                <li>
+                    <a href="~/Store">Store</a>
+                </li>
+                <li>
+                    <a href="https://chk.tbe.taleo.net/chk01/ats/careers/v2/jobSearch?act=redirectCwsV2&cws=40&org=SPACENEEDLE">Careers (at the space needle)</a>
+                </li>
+                <li>
+                    <a href="~/Store/Checkout">Checkout</a>
+                </li>
+                <li>
+                    <a href="~/Account/Details">Profile</a>
+                </li>
+            </ul>
+        </nav>
+        @RenderBody()
+    </main>
+</body>
+</html>

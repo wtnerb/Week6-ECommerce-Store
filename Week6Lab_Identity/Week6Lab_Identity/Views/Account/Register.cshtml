@@ -1,17 +1,22 @@
 ﻿@model Week6Lab_Identity.Models.ViewModels.RegisterUser
 @using Week6Lab_Identity.Models
 
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <h3>Sign on the dotted line. No TOS!</h3>
 <form asp-action="Register" method="post">
     <div>
         <label asp-for="Email">Email <span class="req">*</span></label>
-        <input asp-for="Email" type="email"/>
+        <input asp-for="Email" type="email" />
     </div>
 
     <div>
         <label asp-for="Location">What is your region? <span class="req">*</span></label>
-        <select asp-for="Location" asp-items="Html.GetEnumSelectList<Region>()" ></select>
-    </div>    
+        <select asp-for="Location" asp-items="Html.GetEnumSelectList<Region>()"></select>
+    </div>
 
     <div>
         <label asp-for="Phone">Phone number</label>

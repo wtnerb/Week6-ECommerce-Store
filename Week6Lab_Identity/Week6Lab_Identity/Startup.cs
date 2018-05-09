@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,9 +42,18 @@ namespace Week6Lab_Identity
             services.AddAuthorization(options => 
             {
                 options.AddPolicy("Educational", policy => policy.Requirements.Add(
-                    new EmailEndRequirement(@"^[a-zA-Z0-9\._]+@\w{1,5}\.edu$")));
+                    //String of regex for email requirement
+                    //Basically, it should match any email address that ends in '.edu'
+                    //form:
+                    // [startOfString][Something].[SomethingOptional]@[atmost5letters][.edu]
+                    //TODO write tests of Regex
+                    new EmailRequirement(@"^[a-zA-Z0-9\._]+@\w{1,5}\.edu$")));
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole(Purpose.Admin));
                 
             });
+
+            services.AddScoped<IAuthorizationHandler, EmailHandler>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,12 +65,13 @@ namespace Week6Lab_Identity
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvcWithDefaultRoute();
             app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
+            app.UseStaticFiles();
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync("Bad Link! Sorry!");
             });
         }
     }
