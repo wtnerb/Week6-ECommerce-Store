@@ -1,0 +1,18 @@
+﻿@model Week6Lab_Identity.Models.ViewModels.Login
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="Login">
+    <div>
+        <label asp-for="Username">Email</label>
+        <input asp-for="Username" />
+    </div>
+    <div>
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="password" />
+    </div>
+    <button type="submit">Log in</button>
+</form>

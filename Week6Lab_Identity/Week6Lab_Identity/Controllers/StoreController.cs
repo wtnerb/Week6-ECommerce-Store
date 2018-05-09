@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,20 @@ using Week6Lab_Identity.Models.ViewModels;
 
 namespace Week6Lab_Identity.Controllers
 {
-    [Authorize]
     public class StoreController : Controller
     {
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public StoreController(SignInManager<ApplicationUser> signInMaganger,
+            UserManager<ApplicationUser> userManager)
+        {
+            _signInManager = signInMaganger;
+            _userManager = userManager;
+        }
+
         [HttpGet]
-        public IActionResult Prods ()
+        public IActionResult Index ()
         {
             //TODO create a list of words from the db
             var words = new WordList();

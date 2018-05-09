@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using Week6Lab_Identity.Models;
 
 namespace Week6Lab_Identity.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -29,6 +31,8 @@ namespace Week6Lab_Identity.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Models.ViewModels.RegisterUser formData)
         {
             if (ModelState.IsValid)
@@ -55,7 +59,7 @@ namespace Week6Lab_Identity.Controllers
                     //Got tired of failing to debug this. Will come back later.
                     await _userManager.AddClaimsAsync(newUser, claimList);
 
-                    //await _userManager.AddToRoleAsync(newUser, )
+                    await _userManager.AddToRoleAsync(newUser, Purpose.User);
 
                     await _signInManager.SignInAsync(newUser, isPersistent: false);
 
@@ -66,22 +70,64 @@ namespace Week6Lab_Identity.Controllers
             return View(); // captcha stuff would go here in actual implementation
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpGet]
-        public ViewResult Login()
-        { 
+        [AllowAnonymous]
+        public async Task<IActionResult> Login()
+        {
+            //Following line taken from Amanda's example code
+            //Closes any optn accounts and prevent complications with login (if a user manually
+            //navigates to login page while already logged in, for example)
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login (Models.ViewModels.Login login)
         {
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(login.Username, login.Password, false, false);
-                return RedirectToAction("Index", "Home");
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Store");
+                }
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
 
             return View();
         }
+
+        [Authorize(Policy = "AdminOnly")]
+        [HttpGet]
+        public IActionResult EditUsers()
+        {
+            return View(_userManager.Users);
+        }
+
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            //TODO test this
+            ApplicationUser u = await _userManager.FindByIdAsync(id.ToString());
+            await _userManager.DeleteAsync(u);
+            return RedirectToAction("EditUsers");
+        }
+
+        public IActionResult Details()
+        {
+            return View();
+        }
+        //TODO create make admin, demote admin routes for view to hit
+        //TODO create details route that displays details of current user
     }
 }

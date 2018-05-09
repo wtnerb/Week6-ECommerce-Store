@@ -9,6 +9,7 @@ namespace Week6Lab_Identity.Models.ViewModels
     {
         //TODO once db works, delete this file
         public List<Word> Words { get; set; }
+        public List<Word> EduWords { get; set; }
         public WordList()
         {
             Words = new List<Word>()
@@ -29,6 +30,8 @@ namespace Week6Lab_Identity.Models.ViewModels
                             Usage = POS.adjective
                         }
                     };
+
+            //Note: more seed data for products is in the store controller for edu data
         }
     }
 }

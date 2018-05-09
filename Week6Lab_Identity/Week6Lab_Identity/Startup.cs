@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +30,6 @@ namespace Week6Lab_Identity
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddOptions(); //stack overflow magic
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<DbCtx>()
                 .AddDefaultTokenProviders();
@@ -42,9 +42,17 @@ namespace Week6Lab_Identity
             services.AddAuthorization(options => 
             {
                 options.AddPolicy("Educational", policy => policy.Requirements.Add(
+                    //String of regex for email requirement
+                    //Basically, it should match any email address that ends in '.edu'
+                    //form:
+                    // [startOfString][Something].[SomethingOptional]@[atmost5letters][.edu]
+                    //TODO write tests of Regex
                     new EmailRequirement(@"^[a-zA-Z0-9\._]+@\w{1,5}\.edu$")));
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole(Purpose.Admin));
                 
             });
+
+            services.AddScoped<IAuthorizationHandler, EmailHandler>();
 
         }
 
@@ -57,12 +65,13 @@ namespace Week6Lab_Identity
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvcWithDefaultRoute();
             app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
+            app.UseStaticFiles();
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync("Bad Link! Sorry!");
             });
         }
     }
