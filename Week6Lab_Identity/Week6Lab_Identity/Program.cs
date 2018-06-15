@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +22,11 @@ namespace Week6Lab_Identity
                 try
                 {
                     SeedAdmin.SeedDatabase(services, userManager);
+                    Task prod = SeedProducts.Seed(services);
+
+                    //Spin lock. I tried to find another solution, couldn't. This works.
+                    while (prod.IsCompleted) { };
+
                 }
                 catch (Exception e)
                 {

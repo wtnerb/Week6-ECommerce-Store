@@ -24,4 +24,13 @@ namespace Week6Lab_Identity.Models
         adjective,
         preposition
     }
+
+    //Currently 2018-05-10 only General and Education are used
+    public enum WordType
+    {
+        General,
+        Education,
+        Government,
+        Restricted
+    }
 }

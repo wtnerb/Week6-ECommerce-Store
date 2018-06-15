@@ -1,0 +1,30 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post">
+    <div>
+        <label asp-for="UserName">UserName</label>
+        <input asp-for="UserName" value=@Model.UserName />
+    </div>
+    <div>
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" value=@Model.Email />
+    </div>
+    <div>
+        <label asp-for="PhoneNumber">Phone Number</label>
+        <input asp-for="PhoneNumber" value=@Model.PhoneNumber />
+    </div>
+    <div>
+        <label asp-for="Location">Location</label>
+        <select asp-for="Location" asp-items="Html.GetEnumSelectList<Region>()"  ></select>
+    </div>
+    <div>
+        <label asp-for="DateRegistered">Date Registered</label>
+        <input asp-for="DateRegistered" value=@Model.DateRegistered />
+    </div>
+    <p>Warning: Location is not prepopulated</p>
+    <button type="submit">Update User</button>
+</form>

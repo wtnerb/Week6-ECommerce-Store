@@ -31,51 +31,52 @@ namespace Week6Lab_Identity.Models
             }
         };
         
-        public static void SeedDatabase (IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager)
+        public static async Task SeedDatabase (IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager)
         {
             using (var dbCtx =
                 new DbCtx(serviceProvider.GetRequiredService<DbContextOptions<DbCtx>>()))
             {
                 dbCtx.Database.EnsureCreated();
-                AddRoles(dbCtx);
-                AddUser(dbCtx, userManager);
-                AddUserRoles(dbCtx);
+                await AddRolesAsync(dbCtx);
+                await AddUserAsync(dbCtx, userManager);
+                await AddUserRolesAsync(dbCtx);
             }
         }
 
-        public static void AddRoles (DbCtx ctx)
+        public static async Task AddRolesAsync (DbCtx ctx)
         {
             if (ctx.Roles.Any()) return;
             foreach (var role in Roles)
             {
-                ctx.Roles.Add(role);
+                await ctx.Roles.AddAsync(role);
                 ctx.SaveChanges();
             }
         }
 
-        public static async void AddUser (DbCtx ctx, UserManager<ApplicationUser> userManager)
+        public static async Task AddUserAsync (DbCtx ctx, UserManager<ApplicationUser> userManager)
         {
-            if (ctx.Users.Any(x => x.UserName == AdminEmail)) return;
+            if (await ctx.Users.AnyAsync(x => x.UserName == AdminEmail)) return;
             ApplicationUser admin = new ApplicationUser()
             {
                 UserName = AdminEmail,
                 Email = AdminEmail,
                 EmailConfirmed = true,
                 Location = (byte)Enum.Parse<Region>("Bellingham"),
-                DateRegistered = DateTime.Now
+                DateRegistered = DateTime.Now,
+                BasketId = 0
             };
             await userManager.CreateAsync(admin, AdminPassword);
         }
 
-        public static void AddUserRoles (DbCtx ctx)
+        public static async Task AddUserRolesAsync (DbCtx ctx)
         {
             if (ctx.UserRoles.Any()) return;
             var userRole = new IdentityUserRole<string>
             {
-                UserId = ctx.Users.Single(r => r.Email == AdminEmail).Id,
-                RoleId = ctx.Roles.Single(r => r.Name == Purpose.Admin).Id
+                UserId = (await ctx.Users.SingleAsync(r => r.Email == AdminEmail)).Id,
+                RoleId = (await ctx.Roles.SingleAsync(r => r.Name == Purpose.Admin)).Id
             };
-            ctx.UserRoles.Add(userRole);
+            await ctx.UserRoles.AddAsync(userRole);
             ctx.SaveChanges();
         }
     }
