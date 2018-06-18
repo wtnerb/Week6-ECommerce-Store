@@ -57,15 +57,13 @@ namespace Week6Lab_Identity
                     //String of regex for email requirement
                     //Basically, it should match any email address that ends in '.edu'
                     //form:
-                    // [StartOfString][Something][.ArbitraryChaining]@[AtMost5Letters][.edu]
+                    // [StartOfString][Something][.ArbitraryChaining]@[AtMost5Letters][.edu][EndOfString]
                     //TODO write tests of Regex
                     new EmailRequirement(@"^[a-zA-Z0-9\._]+@\w{1,5}\.edu$")));
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole(Purpose.Admin));
-                
             });
 
             services.AddScoped<IAuthorizationHandler, EmailHandler>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
