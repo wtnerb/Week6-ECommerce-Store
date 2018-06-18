@@ -1,0 +1,15 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>Hello, Admin. What would you like to do today?</h3>
+
+<ul>
+    <li>
+        <a href="~/Admin/EditUsers">Edit Users</a>
+    </li>
+    <li>
+        <a href="~/Admin/EditProducts">Edit Products</a>@*TODO: Implement*@
+    </li>
+</ul>

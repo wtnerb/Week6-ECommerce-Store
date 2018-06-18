@@ -21,7 +21,14 @@ namespace Week6Lab_Identity
     {
         public Startup (IConfiguration configuration)
         {
-            Configuration = configuration;
+
+            var builder = new ConfigurationBuilder().AddEnvironmentVariables();
+
+            builder.AddUserSecrets<Startup>();
+
+            Configuration = builder.Build();
+            //Configuration = configuration; deleting this caused secrets to work
+            //Nothing else broke. Was this line useless?
         }
 
         public IConfiguration Configuration { get; set; }
@@ -36,8 +43,13 @@ namespace Week6Lab_Identity
 
             services.AddDbContext<DbCtx>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultString"));
+                options.UseSqlServer(Configuration["DefaultConnection"]);
             });
+
+            services.AddDbContext<StoreContext>(options =>
+           {
+               options.UseSqlServer(Configuration["StoreConnection"]);
+           });
 
             services.AddAuthorization(options => 
             {
@@ -45,15 +57,13 @@ namespace Week6Lab_Identity
                     //String of regex for email requirement
                     //Basically, it should match any email address that ends in '.edu'
                     //form:
-                    // [startOfString][Something].[SomethingOptional]@[atmost5letters][.edu]
+                    // [StartOfString][Something][.ArbitraryChaining]@[AtMost5Letters][.edu][EndOfString]
                     //TODO write tests of Regex
                     new EmailRequirement(@"^[a-zA-Z0-9\._]+@\w{1,5}\.edu$")));
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole(Purpose.Admin));
-                
             });
 
             services.AddScoped<IAuthorizationHandler, EmailHandler>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

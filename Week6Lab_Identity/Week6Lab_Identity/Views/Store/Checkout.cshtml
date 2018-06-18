@@ -1,0 +1,41 @@
+﻿@model Charge
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Total</h2>
+<h3>@ViewData["total"]</h3>
+
+<p>Note: the products "sold" here are not real products. You card won't be charged if you provide it, but not guarantees it will be securely stored or routed to our site. Please use fictional data.</p>
+<form method="post">
+    <div>
+        <label asp-for="CardHolderName">Name</label>
+        <select asp-for="CardHolderName" >
+            <option>John Smith</option>
+            <option>Jane Doe</option>
+            <option>Jessica Jameson</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="Number">Number</label>
+        <select asp-for="Number" >
+            <option>4111111111111111</option>
+            <option>4012888818888</option>
+            <option>2223000010309703</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="Experation">Experation</label>
+        <select asp-for="Experation" >
+            <option>0718</option>
+            <option>0519</option>
+            <option>0321</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="Cvv">Cvv</label>
+        <input asp-for="Cvv" />
+    </div>
+    <input type="submit" value="Submit">
+</form>
+

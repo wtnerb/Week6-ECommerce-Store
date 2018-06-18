@@ -11,9 +11,10 @@ using Week6Lab_Identity.Data;
 namespace Week6Lab_Identity.Migrations
 {
     [DbContext(typeof(DbCtx))]
-    partial class DbCtxModelSnapshot : ModelSnapshot
+    [Migration("20180516165627_Basket")]
+    partial class Basket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

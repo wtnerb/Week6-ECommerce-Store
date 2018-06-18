@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Week6Lab_Identity.Models
 {
@@ -10,6 +7,7 @@ namespace Week6Lab_Identity.Models
     {
         public DateTime DateRegistered { get; set; }
         public byte Location { get; set; }
+        public int BasketId { get; set; }
     }
 
     public static class Purpose

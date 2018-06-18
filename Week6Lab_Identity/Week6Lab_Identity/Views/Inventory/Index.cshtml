@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Word>
+
+@foreach(Word product in Model)
+{
+    <section>
+        <h3 class="word">@product.Text</h3>       
+        <p class="partOfSpeech">@product.Usage.ToString()</p>
+        <p class="definition">@product.Definition</p>
+        <p class="price">$@product.Price</p>
+    </section>
+}
