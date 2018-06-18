@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Week6Lab_Identity.Data;
@@ -12,6 +10,7 @@ using Week6Lab_Identity.Models.ViewModels;
 using AuthorizeNet.Api.Controllers;
 using AuthorizeNet.Api.Contracts.V1;
 using AuthorizeNet.Api.Controllers.Bases;
+using System;
 
 namespace Week6Lab_Identity.Controllers
 {
@@ -151,8 +150,10 @@ namespace Week6Lab_Identity.Controllers
                     {
                         ViewData["FourDigits"] = int.Parse(cardInformation.Number) % 10000;
                     }
-                    catch
+                    catch (Exception e)
                     {
+                        ViewData["ErrorMessage"] = e.Message;
+                        //TODO log error
                     }
                     return await CheckoutSuccess();
                 }
@@ -161,8 +162,6 @@ namespace Week6Lab_Identity.Controllers
             }
             else
             {
-                
-
                 ViewData["ErrorMessage"] = "Error: " + response.messages.message[0].code + "  " + response.messages.message[0].text;
 
                 if (response.transactionResponse != null)
@@ -172,8 +171,6 @@ namespace Week6Lab_Identity.Controllers
 
                 return RedirectToAction("TransactionError");
             }
-
-
         }
     }
 }

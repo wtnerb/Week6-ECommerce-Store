@@ -42,7 +42,7 @@
                 </td>
                 <td>
                     <form method="post">
-                        <button asp-action="AddToCartAsync" asp-route-id="@item.Id">Add To cart</button>
+                        <button asp-controller="Store" asp-action="AddToCartAsync" asp-route-id=@item.Id>Add To cart</button>
                     </form>
                 </td>
                 <td>
