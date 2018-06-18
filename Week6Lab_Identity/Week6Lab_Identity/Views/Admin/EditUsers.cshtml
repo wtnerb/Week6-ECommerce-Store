@@ -18,8 +18,11 @@
             <td>@u.DateRegistered</td>
             <td>@u.UserName</td>
             <td>
-                <a href="~/Account/Delete/@u.Id.ToString()">
+                <a asp-action="DeleteUsers" asp-route-id="@u.Id">@*broken*@
                     delete
+                </a>
+                <a href="~/Admin/EditUser/@u.Id.ToString()">@*Match to Delete *@
+                    Edit
                 </a>
                 <a>
                     make Admin

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Week6Lab_Identity.Data;
 using Week6Lab_Identity.Models;
 
 namespace Week6Lab_Identity.Controllers
@@ -15,12 +16,15 @@ namespace Week6Lab_Identity.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly StoreContext _context;
         
         public AccountController (SignInManager<ApplicationUser> signInMaganger,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            StoreContext context)
         {
             _signInManager = signInMaganger;
             _userManager = userManager;
+            _context = context;
         }
 
         [HttpGet]
@@ -37,13 +41,15 @@ namespace Week6Lab_Identity.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 ApplicationUser newUser = new ApplicationUser
                 {
                     Email = formData.Email,
                     UserName = formData.Email,
                     DateRegistered = DateTime.Now,
                     PhoneNumber = formData.Phone,
-                    Location = (byte)Enum.Parse<Region>(formData.Location)
+                    Location = (byte)Enum.Parse<Region>(formData.Location),
+                    BasketId = 0
                 };
 
                 var result = await _userManager.CreateAsync(newUser, formData.ConfirmPassword);
@@ -105,22 +111,6 @@ namespace Week6Lab_Identity.Controllers
             }
 
             return View();
-        }
-
-        [Authorize(Policy = "AdminOnly")]
-        [HttpGet]
-        public IActionResult EditUsers()
-        {
-            return View(_userManager.Users);
-        }
-
-        [Authorize(Policy = "AdminOnly")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            //TODO test this
-            ApplicationUser u = await _userManager.FindByIdAsync(id.ToString());
-            await _userManager.DeleteAsync(u);
-            return RedirectToAction("EditUsers");
         }
 
         public IActionResult Details()
