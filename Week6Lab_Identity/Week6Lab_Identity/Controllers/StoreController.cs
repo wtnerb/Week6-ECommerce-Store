@@ -86,7 +86,7 @@ namespace Week6Lab_Identity.Controllers
                 UserKey = user.Id,
                 ItemId = Id,
                 //TODO add quantity feature
-                //ItemQuantity = quantity
+                ItemQuantity = 1
             };
             await _context.Basket.AddAsync(b);
             await _context.SaveChangesAsync();

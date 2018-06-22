@@ -7,11 +7,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>View</h2>
-
 <div class="basket">
     @await Component.InvokeAsync(nameof(Week6Lab_Identity.Components.BasketComponent), (await UserManager.GetUserAsync(User)).BasketId)
 </div>
+
+<h2>View</h2>
+
 <table class="table">
     <thead>
         <tr>
