@@ -38,13 +38,6 @@ namespace Week6Lab_Identity.Components
             {
                 if (item.ItemQuantity == 0)
                     continue;
-                //Does not belong here
-                //if (items.Any(x => x.Item.Id == item.Id))
-                //{
-                //    var match = items.First(x => x.Item.Id == item.Id);
-                //    int newTot = match.Quantity +  item.ItemQuantity;
-                //    items.Remove(match);
-                //}
                 ItemInBasket basketItem = new ItemInBasket
                 {
                     Item = _context.Words.FirstOrDefault(x => x.Id == item.ItemId),
