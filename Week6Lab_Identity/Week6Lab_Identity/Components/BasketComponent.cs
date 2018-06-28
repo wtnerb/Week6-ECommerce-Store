@@ -36,6 +36,15 @@ namespace Week6Lab_Identity.Components
             var userBasket = _context.Basket.Where(x => x.UserBasketNum == current.BasketId && x.UserKey == current.Id);
             foreach (var item in userBasket)
             {
+                if (item.ItemQuantity == 0)
+                    continue;
+                //Does not belong here
+                //if (items.Any(x => x.Item.Id == item.Id))
+                //{
+                //    var match = items.First(x => x.Item.Id == item.Id);
+                //    int newTot = match.Quantity +  item.ItemQuantity;
+                //    items.Remove(match);
+                //}
                 ItemInBasket basketItem = new ItemInBasket
                 {
                     Item = _context.Words.FirstOrDefault(x => x.Id == item.ItemId),

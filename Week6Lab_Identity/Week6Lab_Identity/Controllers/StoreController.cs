@@ -77,17 +77,22 @@ namespace Week6Lab_Identity.Controllers
         public async Task<IActionResult> AddToCartAsync(int Id)
         {
             var user = await _userManager.GetUserAsync(User);
-            //TODO construct path for when item is already in basket (ie - increase quantity instead of create new basket item
-            //if (_context.Basket.FindAsync(new { } ) != null)
-            BasketItem b = new BasketItem()
+            int quantAdd = 1; //TODO add quantity feature
+            if (_context.Basket.FirstOrDefault(x => x.ItemId == Id) != null)
             {
-                UserBasketNum = user.BasketId,
-                UserKey = user.Id,
-                ItemId = Id,
-                //TODO add quantity feature
-                ItemQuantity = 1
-            };
-            await _context.Basket.AddAsync(b);
+                _context.Basket.FirstOrDefault(x => x.ItemId == Id).ItemQuantity += quantAdd;
+            }
+            else
+            {
+                BasketItem b = new BasketItem()
+                {
+                    UserBasketNum = user.BasketId,
+                    UserKey = user.Id,
+                    ItemId = Id,
+                    ItemQuantity = quantAdd
+                };
+                await _context.Basket.AddAsync(b);
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
