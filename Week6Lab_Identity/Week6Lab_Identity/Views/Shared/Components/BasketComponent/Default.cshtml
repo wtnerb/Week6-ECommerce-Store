@@ -18,6 +18,7 @@
             <td>@w.Item.Text</td>
             <td>
                 <form method="post">
+                    @Html.AntiForgeryToken()
                     <button asp-controller="Store" asp-action="RemoveFromCartAsync" asp-route-id=@w.Item.Id>Remove all from cart</button>
                 </form>
             </td>

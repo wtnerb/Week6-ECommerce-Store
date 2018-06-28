@@ -41,6 +41,7 @@
                 </td>
                 <td>
                     <form method="post">
+                        @Html.AntiForgeryToken()
                         <button asp-controller="Store" asp-action="AddToCartAsync" asp-route-id=@item.Id>Add To cart</button>
                     </form>
                 </td>
