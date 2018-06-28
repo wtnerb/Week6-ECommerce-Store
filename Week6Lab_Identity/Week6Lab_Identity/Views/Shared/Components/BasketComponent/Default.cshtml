@@ -2,16 +2,28 @@
 
 <h2>Basket</h2>
 <table>
+    <thead>
+        <tr>
+            <td>quant</td>
+            <td>Price</td>
+            <td>Word</td>
+        </tr>
+    </thead>
     <tbody>
         @foreach(var w in Model.Items)
         {
-            <tr>
-                <td>@w.Quantity</td>
-                <td>@w.Item.Price</td>
-                <td>@w.Item.Text</td>
-            </tr>
+        <tr>
+            <td>@w.Quantity</td>
+            <td>@w.Item.Price</td>
+            <td>@w.Item.Text</td>
+            <td>
+                <form method="post">
+                    <button asp-controller="Store" asp-action="RemoveFromCartAsync" asp-route-id=@w.Item.Id>Remove all from cart</button>
+                </form>
+            </td>
+        </tr>
         }
         
     </tbody>
 </table>
-<p>Total: @Model.Total</p>
+<p class="total">Total: @Model.Total</p>

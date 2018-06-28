@@ -9,6 +9,7 @@ namespace Week6Lab_Identity.Models.ViewModels
     public class Charge
     {
         [Required]
+        [CreditCard]
         public string Number { get; set; }
 
         [Required]
@@ -23,7 +24,7 @@ namespace Week6Lab_Identity.Models.ViewModels
         public string CardHolderName { get; set; }
 
         //TODO Possibly insecure handling of Amount info. Refactor?
-        //[Required]
-        //public decimal Amount { get; set; }
+        [Required]
+        public decimal Amount { get; set; }
     }
 }

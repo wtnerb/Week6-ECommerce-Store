@@ -31,6 +31,7 @@ namespace Week6Lab_Identity.Components
         {
             ApplicationUser current = await _signInManager.UserManager.GetUserAsync(new System.Security.Claims.ClaimsPrincipal(User));
 
+            decimal total = 0;
             List<ItemInBasket> items = new List<ItemInBasket>();
             var userBasket = _context.Basket.Where(x => x.UserBasketNum == current.BasketId && x.UserKey == current.Id);
             foreach (var item in userBasket)
@@ -40,8 +41,11 @@ namespace Week6Lab_Identity.Components
                     Item = _context.Words.FirstOrDefault(x => x.Id == item.ItemId),
                     Quantity = item.ItemQuantity
                 };
+                total += basketItem.Item.Price * basketItem.Quantity;
                 items.Add(basketItem);
             }
+
+            ViewData["Total"] = total;
             Basket basket = new Basket(items);
             return View(basket);
         }

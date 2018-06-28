@@ -1,14 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<Week6Lab_Identity.Models.Word>
-@inject UserManager<ApplicationUser> UserManager
-
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="basket">
-    @await Component.InvokeAsync(nameof(Week6Lab_Identity.Components.BasketComponent), (await UserManager.GetUserAsync(User)).BasketId)
+    @await Component.InvokeAsync(nameof(Week6Lab_Identity.Components.BasketComponent))
 </div>
 
 <h2>View</h2>

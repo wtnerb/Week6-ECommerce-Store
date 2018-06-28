@@ -52,9 +52,6 @@ namespace Week6Lab_Identity.Controllers
         [HttpGet]
         public IActionResult Checkout()
         {
-            //TODO Once cart is working, refactor to work with that
-            //Basket basket = new Basket();
-            ViewData["total"] = 5;//;
             return View();
         }
 
@@ -80,6 +77,8 @@ namespace Week6Lab_Identity.Controllers
         public async Task<IActionResult> AddToCartAsync(int Id)
         {
             var user = await _userManager.GetUserAsync(User);
+            //TODO construct path for when item is already in basket (ie - increase quantity instead of create new basket item
+            //if (_context.Basket.FindAsync(new { } ) != null)
             BasketItem b = new BasketItem()
             {
                 UserBasketNum = user.BasketId,
@@ -93,6 +92,28 @@ namespace Week6Lab_Identity.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Removes item from cart for the current user based on item id
+        /// </summary>
+        /// <param name="Id">id of item to be removed</param>
+        /// <param name="all"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromCartAsync (int Id, string source, bool all = true)
+        {
+            //TODO add button to use the all bool to remove one at a time (Default all)
+            var user = await _userManager.GetUserAsync(User);
+            var userBasket = _context.Basket.Where(x => x.UserBasketNum == user.BasketId && x.UserKey == user.Id);
+            var item = userBasket.FirstOrDefault(x => x.Id == Id);
+            if ( item != null)
+            {
+               item.ItemQuantity = (item.ItemQuantity < 1 || all ) ? 0 : item.ItemQuantity - 1;
+                _context.Update(item);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(source);
+        }
 
         /// <summary>
         /// This method uses Authorize Net example code for their NuGet package, with minor tweaks

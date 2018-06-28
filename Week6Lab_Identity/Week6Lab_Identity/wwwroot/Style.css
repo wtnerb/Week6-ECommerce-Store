@@ -65,3 +65,7 @@ nav ul li {
 .basket {
     float: right;
 }
+
+.total{
+    font-size: 1.2vw;
+}

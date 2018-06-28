@@ -3,8 +3,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Total</h2>
-<h3>@ViewData["total"]</h3>
+<div class="basket">
+    @await Component.InvokeAsync(nameof(Week6Lab_Identity.Components.BasketComponent))
+</div>
 
 <p>Note: the products "sold" here are not real products. As such, the form only allows demo data to be input, not real card information -- but the demo information will get processed by the payment service. Please use responsibly.</p>
 <form method="post">
@@ -35,6 +36,10 @@
     <div>
         <label asp-for="Cvv">Cvv</label>
         <input asp-for="Cvv" />
+    </div>
+    <div>
+        <label asp-for="Amount">$ Amount</label>
+        <input asp-for="Amount" value=@ViewData["Total"] />
     </div>
     <input type="submit" value="Submit">
 </form>
