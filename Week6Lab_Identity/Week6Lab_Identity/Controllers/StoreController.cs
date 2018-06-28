@@ -110,10 +110,10 @@ namespace Week6Lab_Identity.Controllers
             //TODO add button to use the all bool to remove one at a time (Default all)
             var user = await _userManager.GetUserAsync(User);
             var userBasket = _context.Basket.Where(x => x.UserBasketNum == user.BasketId && x.UserKey == user.Id);
-            var item = userBasket.FirstOrDefault(x => x.Id == Id);
+            var item = userBasket.FirstOrDefault(x => x.ItemId == Id);
             if ( item != null)
             {
-               item.ItemQuantity = (item.ItemQuantity < 1 || all ) ? 0 : item.ItemQuantity - 1;
+                item.ItemQuantity = (item.ItemQuantity < 1 || all ) ? 0 : item.ItemQuantity - 1;
                 _context.Update(item);
                 await _context.SaveChangesAsync();
             }

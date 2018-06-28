@@ -54,7 +54,8 @@ tr {
 }
 
 table {
-    background-color: #ccd
+    background-color: #ccd;
+    border-collapse: collapse;
 }
 
 nav ul li {

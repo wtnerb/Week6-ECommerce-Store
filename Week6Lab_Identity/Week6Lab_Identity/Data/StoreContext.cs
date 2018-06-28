@@ -13,6 +13,5 @@ namespace Week6Lab_Identity.Data
 
         public DbSet<Word> Words { get; set; }
         public DbSet<BasketItem> Basket { get; set; }
-        //TODO create BasketItem model before implementing
     }
 }
