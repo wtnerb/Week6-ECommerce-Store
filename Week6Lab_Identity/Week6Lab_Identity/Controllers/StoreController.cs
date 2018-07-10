@@ -11,6 +11,7 @@ using AuthorizeNet.Api.Controllers;
 using AuthorizeNet.Api.Contracts.V1;
 using AuthorizeNet.Api.Controllers.Bases;
 using System;
+using Week6Lab_Identity.Components;
 
 namespace Week6Lab_Identity.Controllers
 {
@@ -107,7 +108,7 @@ namespace Week6Lab_Identity.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveFromCartAsync (int Id, string source, bool all = true)
+        public async Task<IActionResult> RemoveFromCartAsync (int Id, bool all = true)
         {
             //TODO add button to use the all bool to remove one at a time (Default all)
             var user = await _userManager.GetUserAsync(User);
@@ -119,7 +120,7 @@ namespace Week6Lab_Identity.Controllers
                 _context.Update(item);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction(source);
+            return RedirectToAction(nameof(Index));
         }
 
         /// <summary>
