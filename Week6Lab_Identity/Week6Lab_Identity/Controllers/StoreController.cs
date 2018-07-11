@@ -11,7 +11,6 @@ using AuthorizeNet.Api.Controllers;
 using AuthorizeNet.Api.Contracts.V1;
 using AuthorizeNet.Api.Controllers.Bases;
 using System;
-using Week6Lab_Identity.Components;
 
 namespace Week6Lab_Identity.Controllers
 {
@@ -121,6 +120,14 @@ namespace Week6Lab_Identity.Controllers
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Details (int Id)
+        {
+            var word = await _context.Words.FindAsync(Id);
+            return View(word);
         }
 
         /// <summary>
